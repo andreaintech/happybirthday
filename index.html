@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday James! 🎉</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -472,6 +472,7 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             z-index: 2;
+            pointer-events: none; /* Prevent message from interfering with clicks */
         }
 
         .message.show {
@@ -547,6 +548,17 @@
                 0 0 60px rgba(255, 215, 0, 0.4);
         }
 
+        .wish-particles {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+        }
+
         @keyframes wish-animation {
             0% {
                 transform: translate(-50%, -50%) scale(0);
@@ -562,226 +574,136 @@
             }
         }
 
-        .wish-particles {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1000;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .wish-particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: radial-gradient(circle, #fff 0%, #ffd700 100%);
-            border-radius: 50%;
-            animation: particle-float 2.5s ease-out forwards;
-            left: 0;
-            top: 0;
-            box-shadow: 
-                0 0 10px rgba(255, 215, 0, 0.5),
-                0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        @keyframes particle-float {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0);
-                opacity: 0;
-            }
-        }
-
-        /* Photo Gallery */
-        .gallery {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none;
-            max-width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            padding: 1rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        /* Message Board */
-        .message-board {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none;
-            max-width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .message-form {
-            margin-bottom: 2rem;
-        }
-
-        .message-input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #FF69B4;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-
-        .message-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .message-item {
-            background: #f8f8f8;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Social Share */
-        .social-share {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            display: flex;
-            gap: 1rem;
-            z-index: 1000;
-        }
-
-        .social-share button {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .social-share button:hover {
-            transform: translateY(-3px);
-        }
-
-        /* Special Balloon Shapes */
-        .balloon.heart {
-            clip-path: path('M12,21.35l-1.45-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z');
-        }
-
-        .balloon.star {
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-        }
-
-        /* 3D Solar Panel Effect */
-        .solar-panel {
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .solar-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
-            transform: translateZ(10px);
-        }
-
         /* Mobile Optimizations */
         @media (max-width: 768px) {
             .card {
-                padding: 2.5rem 1.5rem;
                 width: 95%;
                 max-width: 500px;
+                padding: 2.5rem 1.5rem;
+                margin: 2rem auto;
+                font-size: 1rem;
+                margin-bottom: 7rem; /* Increased space for both message and wish button */
             }
 
-            .birthday-text {
+            .card h1 {
                 font-size: 2.5rem;
-                margin: 1.5rem 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .card p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin-bottom: 1.2rem;
+            }
+
+            .message {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                bottom: 5rem; /* Position above the wish button */
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(5px);
             }
 
             .wish-button {
-                bottom: 1.5rem;
-                right: 1.5rem;
-                padding: 0.8rem 1.5rem;
-                font-size: 1rem;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+                bottom: 1rem;
+                right: 1rem;
+                transform: scale(0.9);
+                background: linear-gradient(45deg, #FF69B4, #FF1493);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             }
 
-            .wish-button i {
-                font-size: 1.2rem;
+            .wish-button .star {
+                font-size: 1rem;
+                margin-right: 0.3rem;
             }
 
             .wish {
                 font-size: 4rem;
+                transform: translate(-50%, -50%);
             }
 
-            .wish-particle {
-                width: 6px;
-                height: 6px;
+            .wish-particles {
+                transform: translate(-50%, -50%);
             }
 
-            .wish-button, .countdown, .music-player, .social-share {
-                position: static;
-                margin: 1rem auto;
-                display: block;
+            @keyframes wish-animation {
+                0% {
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 0;
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.5);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 0;
+                }
             }
 
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            .confetti {
+                width: 8px;
+                height: 8px;
             }
 
-            .message-board {
-                width: 95%;
-                margin: 1rem auto;
+            .balloon {
+                width: 30px;
+                height: 40px;
+                font-size: 1.2rem;
             }
+
+            .solar-panel {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .social-links a {
+                width: 100%;
+                padding: 0.8rem;
+                font-size: 1rem;
+            }
+
+            /* Adjust container to prevent overlap */
+            .container {
+                padding-bottom: 4rem; /* Increased padding to accommodate both message and button */
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .wish-button {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .wish-button:active {
+                transform: scale(0.95);
+            }
+
+            .social-links a:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Prevent Text Selection */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Allow Text Selection for Links */
+        a {
+            -webkit-user-select: text;
+            user-select: text;
         }
     </style>
 </head>
@@ -815,6 +737,18 @@
     </button>
 
     <script>
+        // Define colors array in global scope
+        const colors = [
+            '#FFD700', // Gold
+            '#FF69B4', // Pink
+            '#FF1493', // Deep Pink
+            '#FF4500', // Orange Red
+            '#4169E1', // Royal Blue
+            '#32CD32', // Lime Green
+            '#9370DB', // Medium Purple
+            '#00CED1'  // Dark Turquoise
+        ];
+
         function createSunRay() {
             const ray = document.createElement('div');
             ray.className = 'sun-rays';
@@ -832,17 +766,6 @@
         }
 
         function createConfetti(x, y) {
-            const colors = [
-                '#FFD700', // Gold
-                '#FF69B4', // Pink
-                '#FF1493', // Deep Pink
-                '#FF4500', // Orange Red
-                '#4169E1', // Royal Blue
-                '#32CD32', // Lime Green
-                '#9370DB', // Medium Purple
-                '#00CED1'  // Dark Turquoise
-            ];
-            
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
             confetti.style.left = `${x}px`;
@@ -989,18 +912,6 @@
             const balloon = document.createElement('div');
             balloon.className = 'balloon';
             
-            // Random colors for balloons
-            const colors = [
-                '#FF69B4', // Pink
-                '#FF1493', // Deep Pink
-                '#FFD700', // Gold
-                '#FF4500', // Orange Red
-                '#4169E1', // Royal Blue
-                '#32CD32', // Lime Green
-                '#9370DB', // Medium Purple
-                '#00CED1'  // Dark Turquoise
-            ];
-            
             // Random size variation
             const size = 30 + Math.random() * 20;
             balloon.style.width = `${size}px`;
@@ -1010,7 +921,7 @@
             balloon.style.left = `${x}px`;
             balloon.style.top = `${y}px`;
             
-            // Random color
+            // Random color using the global colors array
             balloon.style.background = `radial-gradient(circle at 50% 40%, 
                 rgba(255, 255, 255, 0.8) 0%, 
                 ${colors[Math.floor(Math.random() * colors.length)]} 30%, 
@@ -1060,7 +971,7 @@
             createBalloon(x, y);
         }, 3000);
 
-        // Enhanced Make a Wish Animation
+        // Enhanced Make a Wish Animation with Touch Support
         function makeWish() {
             // First, fade out all existing confetti and balloons smoothly
             const existingConfetti = document.querySelectorAll('.confetti');
@@ -1172,11 +1083,12 @@
             }, 1000); // Wait for fade-out to complete
         }
 
-        // Add touch event listeners for mobile
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length === 1) {
-                createBalloon(e.touches[0].clientX, e.touches[0].clientY);
-            }
+        // Add touch event listeners for the wish button
+        const wishButton = document.querySelector('.wish-button');
+        wishButton.addEventListener('click', makeWish);
+        wishButton.addEventListener('touchend', (e) => {
+            e.preventDefault(); // Prevent double-tap zoom
+            makeWish();
         });
     </script>
 </body>
