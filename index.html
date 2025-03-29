@@ -228,13 +228,14 @@
         .name {
             font-size: 4rem;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ffd700, #ffa500);
+            background: linear-gradient(45deg, #00ffff, #00b3ff, #0066ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: glow 2s ease-in-out infinite;
             cursor: pointer;
             transition: transform 0.3s ease;
             animation: bounce 2s ease infinite;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
 
         .greeting {
@@ -251,8 +252,8 @@
         }
 
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 30px rgba(0, 255, 255, 0.8); }
         }
 
         .title {
@@ -322,7 +323,7 @@
             width: 10px;
             height: 10px;
             background: var(--color);
-            animation: confetti-fall 8s linear forwards;
+            animation: confetti-fall 12s linear forwards;
             opacity: 0.8;
             z-index: 1;
         }
@@ -775,8 +776,8 @@
             // Randomize the starting position slightly
             confetti.style.left = `${x + (Math.random() - 0.5) * 100}px`;
             
-            // Randomize the animation duration
-            const duration = 8 + Math.random() * 4; // 8-12 seconds
+            // Randomize the animation duration for slower fall
+            const duration = 12 + Math.random() * 6; // 12-18 seconds
             confetti.style.animationDuration = `${duration}s`;
             
             // Randomize the delay
@@ -790,11 +791,11 @@
             }, duration * 1000);
         }
 
-        // Modify the confetti creation interval
+        // Modify the confetti creation interval to be less frequent
         setInterval(() => {
             const x = Math.random() * window.innerWidth;
             createConfetti(x, -10);
-        }, 200); // Create confetti every 200ms instead of 10ms
+        }, 800); // Increased from 500ms to 800ms
 
         // Create confetti burst with more left-side coverage
         function createConfettiBurst(x, y) {
@@ -815,7 +816,7 @@
 
         // Create initial confetti burst with more left-side coverage
         function createInitialConfettiBurst() {
-            const burstCount = 300;
+            const burstCount = 150; // Reduced from 300
             for(let i = 0; i < burstCount; i++) {
                 setTimeout(() => {
                     const confetti = createConfetti(Math.random() * window.innerWidth, -20);
@@ -826,7 +827,7 @@
                         confetti.style.setProperty('--x-start', `${x}px`);
                         confetti.style.setProperty('--y-start', `${y}px`);
                     }
-                }, i * 5);
+                }, i * 10); // Increased delay between confetti pieces
             }
         }
 
@@ -922,10 +923,12 @@
             balloon.style.top = `${y}px`;
             
             // Random color using the global colors array
+            const color1 = colors[Math.floor(Math.random() * colors.length)];
+            const color2 = colors[Math.floor(Math.random() * colors.length)];
             balloon.style.background = `radial-gradient(circle at 50% 40%, 
                 rgba(255, 255, 255, 0.8) 0%, 
-                ${colors[Math.floor(Math.random() * colors.length)]} 30%, 
-                ${colors[Math.floor(Math.random() * colors.length)]} 100%
+                ${color1} 30%, 
+                ${color2} 100%
             )`;
             
             // Moderate animation duration
@@ -949,27 +952,27 @@
             return balloon;
         }
 
-        // Create initial balloons
+        // Create initial balloons with reduced count
         function createInitialBalloons() {
-            const balloonCount = 15;
+            const balloonCount = 8; // Reduced from 15
             for(let i = 0; i < balloonCount; i++) {
                 setTimeout(() => {
                     const x = Math.random() * window.innerWidth;
                     const y = window.innerHeight + 50;
                     createBalloon(x, y);
-                }, i * 200);
+                }, i * 300); // Increased delay between balloons
             }
         }
 
         // Create initial balloons on load
         createInitialBalloons();
 
-        // Create balloons periodically
+        // Create balloons periodically with reduced frequency
         setInterval(() => {
             const x = Math.random() * window.innerWidth;
             const y = window.innerHeight + 50;
             createBalloon(x, y);
-        }, 3000);
+        }, 5000); // Increased from 3000ms to 5000ms
 
         // Enhanced Make a Wish Animation with Touch Support
         function makeWish() {
@@ -1070,14 +1073,14 @@
                         setInterval(() => {
                             const x = Math.random() * window.innerWidth;
                             createConfettiWithFade(x, -10);
-                        }, 200);
+                        }, 500);
 
                         // Resume balloon creation with fade-in
                         setInterval(() => {
                             const x = Math.random() * window.innerWidth;
                             const y = window.innerHeight + 50;
                             createBalloonWithFade(x, y);
-                        }, 3000);
+                        }, 5000);
                     }, 1000);
                 }, 2500);
             }, 1000); // Wait for fade-out to complete
